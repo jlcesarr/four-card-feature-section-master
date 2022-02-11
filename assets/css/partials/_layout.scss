@@ -1,0 +1,123 @@
+$container-xl: 1440px;
+$container-l: 1140px;
+$container-m: 975px;
+$container-s: 540px;
+@mixin responsive($device) {
+    @if($device==xl) {
+        @media screen and (max-width: $container-xl) {
+            @content;
+        }
+    }
+    @else if($device==l) {
+        @media screen and (min-width: $container-l) and (max-width: $container-xl) {
+            @content;
+        }
+    }
+    @else if($device==s) {
+        @media screen and (max-width: $container-m) {
+            @content;
+        }
+    }
+    @else if($device==xs) {
+        @media screen and (max-width: $container-s) {
+            @content;
+        }
+    }
+}
+
+$container-name: "container";
+.#{$container-name} {
+    max-width: 1440px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    padding: 96px;
+    width: 100%;
+    @include responsive(s) {
+        padding: 24px;
+    }
+}
+
+.intro-title {
+    font-weight: 200;
+    opacity: 0.7;
+    .title-emphasis {
+        font-weight: 600;
+    }
+    @include responsive(xs) {
+        font-size: 22px !important;
+    }
+}
+
+.card-title {
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+.intro-description {
+    font-size: 17px;
+    opacity: 0.6;
+    @include responsive(xs) {
+        font-size: 16px !important;
+    }
+}
+
+.flex-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.container.intro {
+    text-align: center;
+}
+
+.container.cards {
+    padding: 24px 96px;
+    gap: 24px;
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    grid-template-areas: "card-supervisor card-team-builder card-calculator" "card-supervisor card-karma card-calculator";
+    @include responsive(s) {
+        grid-template-areas: "card-supervisor" "card-team-builder" "card-karma" "card-calculator";
+        justify-content: center;
+        column-gap: 0;
+        padding: 24px 36px;
+    }
+    .card {
+        box-shadow: 0px 12px 18px 0px rgba(0, 0, 0, 0.1);
+        background-color: $very-light-gray;
+        border-radius: 8px;
+        max-width: 360px;
+        height: 280px;
+        padding: 16px 24px;
+        border-top: 6px solid;
+        display: grid;
+        grid-template-rows: auto auto 1fr;
+        .card-icon {
+            justify-self: end;
+            align-self: end;
+        }
+        &.card-supervisor {
+            border-color: $Cyan;
+            grid-area: card-supervisor;
+            align-self: center;
+        }
+        &.card-team-builder {
+            border-color: $Red;
+            grid-area: card-team-builder;
+        }
+        &.card-karma {
+            border-color: $Orange;
+            grid-area: card-karma;
+        }
+        &.card-calculator {
+            border-color: $Blue;
+            grid-area: card-calculator;
+            align-self: center;
+        }
+    }
+    .column-cards {
+        gap: 32px;
+        flex-shrink: 0;
+    }
+}
